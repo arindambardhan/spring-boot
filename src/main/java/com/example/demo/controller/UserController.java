@@ -4,6 +4,7 @@ import com.example.demo.dto.UserDTO;
 import com.example.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,5 +19,10 @@ public class UserController {
     @GetMapping
     public List<UserDTO> getUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/{id}")
+    public UserDTO getUserById(@PathVariable("id") int id) {
+        return userService.getUserById(id);
     }
 }
