@@ -7,6 +7,9 @@ import com.example.demo.entity.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryUserRepository implements UserRepository {
@@ -84,8 +87,17 @@ public class InMemoryUserRepository implements UserRepository {
                     .department(MEDICINE).build()
     );
 
-    @Override
     public List<User> findAll() {
         return USERS;
+    }
+
+    public User findById(int id) {
+        Map<Integer, User> usersById = getUsersById();
+        return usersById.get(id);
+    }
+
+    private Map<Integer, User> getUsersById() {
+        return USERS.stream()
+                .collect(Collectors.toMap(User::getId, Function.identity()));
     }
 }
