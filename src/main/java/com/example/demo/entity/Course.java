@@ -1,3 +1,15 @@
 package com.example.demo.entity;
 
-public record Course(int id, String name) {}
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Course {
+    private int id;
+    private String name;
+}

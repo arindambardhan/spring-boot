@@ -1,3 +1,16 @@
 package com.example.demo.entity;
 
-public record Address(String city, String line1, String line2) {}
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Address {
+    private String city;
+    private String line1;
+    private String line2;
+}
