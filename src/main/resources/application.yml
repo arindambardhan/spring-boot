@@ -1,0 +1,11 @@
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 500
+
+
+logging:
+  level:
+    root: ERROR
+    com.example.demo: DEBUG

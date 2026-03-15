@@ -6,8 +6,10 @@ import com.example.demo.dto.DepartmentDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.entity.User;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @UtilityClass
 public class FactoryHelperUtil {
@@ -39,5 +41,27 @@ public class FactoryHelperUtil {
                 .address(address)
                 .department(department)
                 .build();
+    }
+
+    @Slf4j
+    static class ContextualOp {
+        static void simulateLatency() {
+            try {
+                ThreadLocalRandom rng = ThreadLocalRandom.current();
+                long delay;
+                int roll = rng.nextInt(100);
+                if (roll < 60) {
+                    delay = rng.nextLong(10, 50);      // 60%: fast  10–50ms
+                } else if (roll < 90) {
+                    delay = rng.nextLong(50, 150);     // 30%: normal 50–150ms
+                } else {
+                    delay = rng.nextLong(150, 500);    // 10%: slow spike 150–500ms
+                }
+                log.debug("Simulated latency: {} ms", delay);
+                Thread.sleep(delay);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 }
